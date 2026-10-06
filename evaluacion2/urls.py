@@ -16,10 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tienda.views import catalogo
+from tienda import views # Importamos todas las vistas desde tu app 'tienda'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', catalogo, name='catalogo'),
+    
+    # Ruta principal
+    path('', views.catalogo, name='catalogo'),
+    
+    # Rutas del CRUD (los 'name' deben coincidir con lo que pusiste en el HTML)
+    path('editar/<int:id>/', views.editar_videojuego, name='editar'),
+    path('eliminar/<int:id>/', views.eliminar_videojuego, name='eliminar'),
 ]
-
