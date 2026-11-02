@@ -16,15 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tienda import views # Importamos todas las vistas desde tu app 'tienda'
+from tienda import views 
+
+# Importaciones para el login web y la API
+from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    # Ruta principal
+    # Rutas web de tu tienda
     path('', views.catalogo, name='catalogo'),
-    
-    # Rutas del CRUD (los 'name' deben coincidir con lo que pusiste en el HTML)
     path('editar/<int:id>/', views.editar_videojuego, name='editar'),
     path('eliminar/<int:id>/', views.eliminar_videojuego, name='eliminar'),
+    
+    # Rutas visuales para iniciar y cerrar sesión (las que faltaban)
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='catalogo'), name='logout'),
+
+    # Ruta de la API para el token 
+    path('api/login/', obtain_auth_token, name='api_token_auth'),
 ]

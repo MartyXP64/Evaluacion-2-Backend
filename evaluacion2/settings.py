@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tienda',
+    'rest_framework',          # Añadido para la API REST
+    'rest_framework.authtoken', # Añadido para generar y manejar tokens
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuración de Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+LOGIN_REDIRECT_URL = 'catalogo' # Redirige al inicio tras loguearse
+LOGIN_URL = 'login'             # Redirige aquí si alguien intenta entrar a una vista protegida sin sesión
