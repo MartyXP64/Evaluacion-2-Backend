@@ -53,20 +53,36 @@
 
     <!-- Barra de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-3">
-        <div class="container">
-            <a class="navbar-brand fw-bold fs-3 text-warning d-flex align-items-center gap-2" href="#">
-                <i class="bi bi-controller text-danger"></i> Tienda de Videojuegos
-            </a>
-            <div class="d-flex gap-2">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3 text-warning d-flex align-items-center gap-2" href="#">
+            <i class="bi bi-controller text-danger"></i> Tienda de Videojuegos
+        </a>
+        <div class="d-flex gap-2">
+            
+            {% if user.is_superuser %}
+                <!-- Este botón ahora solo aparecerá si eres administrador -->
                 <a href="#modalAgregar" data-bs-toggle="modal" class="btn btn-primary fw-bold d-flex align-items-center gap-2 shadow-sm">
                     <i class="bi bi-plus-circle-fill"></i> Añadir Videojuego
                 </a>
-            </div>
+            {% endif %}
+
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- Contenido principal -->
     <main class="container my-5">
+        <div class="container mt-3">
+    {% if messages %}
+        {% for message in messages %}
+            <!-- Esto mostrará una alerta verde si es éxito o roja si es error -->
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
         {% block content %}
         {% endblock %}
     </main>

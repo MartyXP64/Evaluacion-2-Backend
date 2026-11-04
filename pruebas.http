@@ -1,0 +1,41 @@
+### 1. GET: Listar todos los videojuegos
+GET http://127.0.0.1:8000/api/videojuegos/
+Authorization: Token 920f0993772994ca4ab2bd09107f0962f4ca577e
+
+###
+
+### 2. POST: Crear un videojuego nuevo
+POST http://127.0.0.1:8000/api/videojuegos/
+Authorization: Token 920f0993772994ca4ab2bd09107f0962f4ca577e
+Content-Type: application/json
+
+{
+    "titulo": "Crash Tag Team Racing",
+    "categoria": "Carreras",
+    "precio": 15000,
+    "stock": 3,
+    "portada": "https://m.media-amazon.com/images/M/MV5BZGY1ZTBjNWEtY2RiNy00NWE4LWI1ZTQtZTMyMTE1ZDkyMDMyXkEyXkFqcGc@._V1_.jpg",
+    "descripcion": "Juego creado desde la API"
+}
+
+###
+
+### 3. PUT: Actualizar un videojuego existente 
+PUT http://127.0.0.1:8000/api/videojuegos/9/
+Authorization: Token 920f0993772994ca4ab2bd09107f0962f4ca577e
+Content-Type: application/json
+
+{
+    "titulo": "Crash Tag Team Racing Editado",
+    "categoria": "Carreras Retro",
+    "precio": 12000,
+    "stock": 5,
+    "portada": "https://m.media-amazon.com/images/M/MV5BZGY1ZTBjNWEtY2RiNy00NWE4LWI1ZTQtZTMyMTE1ZDkyMDMyXkEyXkFqcGc@._V1_.jpg",
+    "descripcion": "Le bajamos el precio"
+}
+
+###
+
+### 4. DELETE: Eliminar un videojuego 
+DELETE http://127.0.0.1:8000/api/videojuegos/9/
+Authorization: Token 920f0993772994ca4ab2bd09107f0962f4ca577e

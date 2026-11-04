@@ -30,12 +30,18 @@
                 
           
                 <div class="d-flex gap-2">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalEditar{{ juego.id }}" class="btn btn-outline-warning btn-sm w-50 d-flex align-items-center justify-content-center gap-1">
-                        <i class="bi bi-pencil-square"></i> Editar
+                    {% if user.is_superuser %}
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#modalEditar{{ juego.id }}" class="btn btn-outline-warning btn-sm w-50 d-flex align-items-center justify-content-center gap-1"></button>
+                    <i class="bi bi-pencil-square"></i> Editar
                     </button>
-                    <a href="{% url 'eliminar' juego.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar {{ juego.titulo }}?');" class="btn btn-outline-danger btn-sm w-50 d-flex align-items-center justify-content-center gap-1">
-                        <i class="bi bi-trash-fill"></i> Borrar
+                    <a href="{% url 'eliminar' juego.id %}" onclick="return confirm('¿Estás seguro de que deseas eliminar {{ juego.titulo }}?');" class="btn btn-outline-danger btn-sm w-50 d-flex align-items-center justify-content-center gap-1"></a>
+                    <i class="bi bi-trash-fill"></i> Borrar
                     </a>
+                    {% else %}
+                    <a href="{% url 'comprar' juego.id %}" class="btn btn-primary btn-sm w-100 d-flex align-items-center justify-content-center gap-1"></a>
+                    <i class="bi bi-cart-plus"></i> Comprar
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -145,5 +151,12 @@
         </div>
     </div>
 </div>
+
+<form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-danger">
+        Cerrar Sesión
+    </button>
+</form>
 
 {% endblock %}
