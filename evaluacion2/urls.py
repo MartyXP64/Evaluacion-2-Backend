@@ -16,7 +16,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth.views import LogoutView
+from tienda import views 
+
+# Importaciones para el login web y la API
+from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    
+    path('', views.catalogo, name='catalogo'),
+    path('editar/<int:id>/', views.editar_videojuego, name='editar'),
+    path('eliminar/<int:id>/', views.eliminar_videojuego, name='eliminar'),
+    path('comprar/<int:id>/', views.comprar_juego, name='comprar'),
+    
+    
+    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='catalogo'), name='logout'),
+
+    
+    path('api/login/', obtain_auth_token, name='api_token_auth'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    
+    path('api/videojuegos/', views.api_juegos, name='api_juegos'),
+    path('api/videojuegos/<int:id>/', views.api_juego_detalle, name='api_juego_detalle'),
+
 ]
